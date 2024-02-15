@@ -33,6 +33,8 @@ public class Book {
     @Positive(message = "The book price must be greater than zero.")
     private Double price;
 
+    private String publisher;
+
     @CreatedDate
     private Instant createdDate;
 
@@ -45,19 +47,20 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String isbn, String title, String author, Double price, Instant createdDate, Instant lastModifiedDate, int version) {
+    public Book(Long id, String isbn, String title, String author, Double price, String publisher, Instant createdDate, Instant lastModifiedDate, int version) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.price = price;
+        this.publisher = publisher;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
         this.version = version;
     }
 
-    public static Book of(String isbn, String title, String author, Double price) {
-        return new Book(null, isbn, title, author, price, null, null, 0);
+    public static Book of(String isbn, String title, String author, Double price, String publisher) {
+        return new Book(null, isbn, title, author, price, publisher,null, null, 0);
     }
 
     public Long getId() {
@@ -99,6 +102,14 @@ public class Book {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
     public Instant getCreatedDate() {
         return createdDate;
     }
@@ -128,12 +139,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return version == book.version && Objects.equals(id, book.id) && Objects.equals(isbn, book.isbn) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(price, book.price) && Objects.equals(createdDate, book.createdDate) && Objects.equals(lastModifiedDate, book.lastModifiedDate);
+        return version == book.version && Objects.equals(id, book.id) && Objects.equals(isbn, book.isbn) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(price, book.price) && Objects.equals(publisher, book.publisher) && Objects.equals(createdDate, book.createdDate) && Objects.equals(lastModifiedDate, book.lastModifiedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, isbn, title, author, price, createdDate, lastModifiedDate, version);
+        return Objects.hash(id, isbn, title, author, price, publisher, createdDate, lastModifiedDate, version);
     }
 }
 
