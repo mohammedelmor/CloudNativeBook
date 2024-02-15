@@ -1,17 +1,16 @@
 package com.polarbookshop.catalogservice.domain;
 
-import org.springframework.stereotype.Repository;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface BookRepository {
-    Iterable<Book> findAll();
+public interface BookRepository extends CrudRepository<Book, Long> {
 
     Optional<Book> findByIsbn(String isbn);
-
     boolean existsByIsbn(String isbn);
-
-    Book save(Book book);
-
+    @Modifying
+    @Transactional
     void deleteByIsbn(String isbn);
 }
